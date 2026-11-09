@@ -1,6 +1,6 @@
 # Báo cáo cá nhân — Ngày 2 Object Detection
 
-Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; chưa xác nhận rà bằng mắt 10 ảnh, chưa chạy gold QC hoặc huấn luyện. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
+Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; chưa xác nhận rà bằng mắt 10 ảnh, đã chạy gold QC lần đầu nhưng chưa đạt F1; chưa huấn luyện. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
 
 ## 1. Thông tin học viên
 
@@ -29,16 +29,16 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Ba quyết định h�
 
 | Chỉ số | Trước sửa | Sau sửa nếu có |
 |---|---:|---:|
-| TP | | |
-| FP | | |
-| FN | | |
-| Precision | | |
-| Recall | | |
-| F1 | | |
-| mean_iou_of_matches | | |
-| passed | | |
+| TP | 488 | Chưa rework |
+| FP | 682 | Chưa rework |
+| FN | 165 | Chưa rework |
+| Precision | 0.4171 | Chưa rework |
+| Recall | 0.7473 | Chưa rework |
+| F1 | 0.5354 | Chưa rework |
+| mean_iou_of_matches | 0.8377 | Chưa rework |
+| passed | false | Chưa rework |
 
-Dẫn tới `outputs/annotation_evaluation.json` trong repo. Nếu rework, ghi ảnh, lỗi đã kiểm, quyết định sửa/giữ và lý do. Không suy nguyên nhân chỉ từ FP/FN. Không có rework thì ghi rõ.
+Kết quả lần đầu: [annotation_evaluation.json](../../outputs/annotation_evaluation.json). Đủ 50 file gold khớp tên ảnh train; checker nhãn học viên đạt 50/50. Chưa đạt điều kiện train: F1 = 0.5354 < 0.80, dù mean IoU = 0.8377 >= 0.70. Bộ nhãn học viên có 1.170 box, gold có 653 box; TP=488, FP=682, FN=165. Chênh lệch số lượng và FP/FN chỉ là tín hiệu cần rà lại ảnh, không chứng minh từng box thừa/thiếu hoặc nguyên nhân sai lớp. Chưa sửa nhãn sau đánh giá; giữ bản ban đầu tại commit `b7aad2f`. Gold chỉ dùng cục bộ, không đưa lên repo hoặc Colab. Nếu rework, ghi ảnh, lỗi đã kiểm, quyết định sửa/giữ và lý do. Không suy nguyên nhân chỉ từ FP/FN. Không có rework thì ghi rõ.
 
 ## 5. Kết quả YOLO
 
