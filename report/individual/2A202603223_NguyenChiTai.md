@@ -1,15 +1,16 @@
 # Báo cáo cá nhân — Ngày 2 Object Detection
 
-Đổi tên file theo `MSSV_HoTen.md`, ví dụ `20241234_NguyenVanAn.md`. Điền kết quả thật, xóa dòng hướng dẫn khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
+Trạng thái: đang gán nhãn bằng CVAT; chưa chạy self-QC, gold QC hoặc huấn luyện. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
 
 ## 1. Thông tin học viên
 
-- Họ tên:
-- MSSV:
+- Họ tên: Nguyễn Chí Tài (kiểm tra lại dấu theo hồ sơ)
+- MSSV: 2A202603223
 - Email:
 - Lớp:
-- Link repo bài làm:
-- Link Colab đã chạy:
+- Link repo bài làm: https://github.com/nguyen-chi-tai-2005/K5-L2-Day02-NguyenChiTai-2A202603223-ObjectDetection
+- Link mở notebook Colab (chưa chạy): https://colab.research.google.com/github/nguyen-chi-tai-2005/K5-L2-Day02-NguyenChiTai-2A202603223-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb
+- Link bản Colab cá nhân đã chạy: Chờ bổ sung
 
 ## 2. Schema và mini guideline
 
@@ -17,7 +18,8 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Tóm tắt ba ca mơ h
 
 ## 3. Annotation và self-QC
 
-- Số file nhãn train:
+- Công cụ gán nhãn: CVAT; xuất YOLO detection, kiểm tra mapping car=0, truck=1, bus=2, van=3.
+- Số file nhãn train: Chờ xuất từ CVAT
 - Kết quả checker và lỗi đã xử lý:
 - Danh sách ít nhất 10 ảnh đã rà bằng mắt:
 - Lỗi bỏ sót/box/class phát hiện khi rà và cách sửa:
@@ -72,4 +74,7 @@ Trả lời bốn câu hỏi cuối notebook:
 
 ## 8. Công cụ AI và tài liệu tham khảo
 
-Ghi công cụ đã dùng, dùng ở bước nào và phần đã tự kiểm tra; không dùng thì ghi rõ. Liệt kê nguồn ngoài repo được sử dụng. Không ghi mật khẩu/token hoặc đính kèm gold train.
+- Codex: hỗ trợ đọc yêu cầu, lập thứ tự thực hiện, chuẩn bị khung báo cáo, URL repo trong notebook và checklist CVAT. Không tạo nhãn hoặc kết quả đánh giá.
+- Phần học viên tự kiểm tra: Chờ bổ sung các bước đã thực hiện thực tế.
+- Tài liệu công cụ: https://docs.cvat.ai/docs/dataset_management/formats/format-yolo-ultralytics/
+- Không ghi mật khẩu/token hoặc đính kèm gold train.
