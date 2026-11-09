@@ -1,6 +1,6 @@
 # Mini guideline — Nguyễn Chí Tài — 2A202603223
 
-> Bản nháp hỗ trợ bởi Codex, tổng hợp từ schema và GUIDE.md của bài lab. Học viên cần đọc, tự kiểm tra khi gán nhãn và hoàn thiện ít nhất ba ca mơ hồ thực tế trước khi nộp. Ba ca dưới đây do học viên cung cấp; lý do quan sát và bản xuất nhãn sau chỉnh sửa còn chờ bổ sung.
+> Bản nháp hỗ trợ bởi Codex, tổng hợp từ schema và GUIDE.md của bài lab. Học viên cần đọc, tự kiểm tra khi gán nhãn và hoàn thiện ít nhất ba ca mơ hồ thực tế trước khi nộp. Ba ca dưới đây do học viên cung cấp và xác nhận đã được sửa trong bản xuất CVAT đang dùng. Lý do dưới đây giải thích theo schema; học viên cần đối chiếu đặc điểm xe thực tế trước khi nộp.
 
 ## Định nghĩa lớp
 
@@ -28,11 +28,11 @@
 
 | Mã ca / ảnh | Vị trí xe hoặc ID box trong CVAT | Tình huống và dấu hiệu nhìn thấy | Quyết định cuối | Lý do theo schema / xác nhận |
 | --- | --- | --- | --- | --- |
-| CASE-01 / `drive_014.jpg` | ID411 | Nhầm lớp `car` / `van`; học viên chưa mô tả dấu hiệu hình ảnh. | Đổi `car` → `van` theo thông tin học viên cung cấp. | Chờ học viên bổ sung dấu hiệu quan sát và lý do theo schema; chưa ghi nhận xác nhận của giảng viên. |
-| CASE-02 / `drive_017.jpg` | ID467 | Nhầm lớp `van` / `car`; học viên chưa mô tả dấu hiệu hình ảnh. | Đổi `van` → `car` theo thông tin học viên cung cấp. | Chờ học viên bổ sung dấu hiệu quan sát và lý do theo schema; chưa ghi nhận xác nhận của giảng viên. |
-| CASE-03 / `drive_039.jpg` | ID936 | Nhầm lớp `truck` / `bus`; học viên chưa mô tả dấu hiệu hình ảnh. | Đổi `truck` → `bus` theo thông tin học viên cung cấp. | Chờ học viên bổ sung dấu hiệu quan sát và lý do theo schema; chưa ghi nhận xác nhận của giảng viên. |
+| CASE-01 / `drive_014.jpg` | ID411 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `car` → `van`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe van/minivan chở hàng hoặc chở người thuộc `van`, phân biệt với xe con thông thường thuộc `car`. Học viên xác định lại loại xe là van; chưa cung cấp mô tả đặc điểm quan sát. |
+| CASE-02 / `drive_017.jpg` | ID467 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `van` → `car`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe con, sedan, SUV, taxi và bán tải thuộc `car`; không xếp vào `van` chỉ vì thân xe lớn. Học viên xác định lại loại xe là car; chưa cung cấp mô tả đặc điểm quan sát. |
+| CASE-03 / `drive_039.jpg` | ID936 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `truck` → `bus`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe buýt/minibus chở khách thuộc `bus`, còn xe tải hàng/đầu kéo thuộc `truck`. Học viên xác định lại loại xe là bus; chưa cung cấp mô tả đặc điểm quan sát. |
 
-Lưu ý đồng bộ: quyết định đã được ghi nhận trong tài liệu; cần xuất lại nhãn CVAT sau chỉnh sửa để cập nhật các file YOLO. ID đối tượng CVAT không được lưu trong file YOLO 5 cột, nên không dùng ID làm số dòng để sửa nhãn.
+Lưu ý đồng bộ: học viên xác nhận ba thay đổi đã có trong bản xuất CVAT được nhập vào repo tại commit `b7aad2f`; không sửa nhãn lần nữa từ ba ID này. Đây là xác nhận của học viên, không phải kết quả đối chiếu ID tự động: file YOLO 5 cột không lưu ID đối tượng CVAT.
 
 ## Cách ghi nhận trong lúc làm CVAT
 
