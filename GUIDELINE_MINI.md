@@ -1,6 +1,6 @@
 # Mini guideline — Nguyễn Chí Tài — 2A202603223
 
-> Bản nháp hỗ trợ bởi Codex, tổng hợp từ schema và GUIDE.md của bài lab. Học viên cần đọc, tự kiểm tra khi gán nhãn và hoàn thiện ít nhất ba ca mơ hồ thực tế trước khi nộp. Các dòng chờ bên dưới chưa phải ca đã quan sát.
+> Bản nháp hỗ trợ bởi Codex, tổng hợp từ schema và GUIDE.md của bài lab. Học viên cần đọc, tự kiểm tra khi gán nhãn và hoàn thiện ít nhất ba ca mơ hồ thực tế trước khi nộp. Ba ca dưới đây do học viên cung cấp; lý do quan sát và bản xuất nhãn sau chỉnh sửa còn chờ bổ sung.
 
 ## Định nghĩa lớp
 
@@ -28,9 +28,11 @@
 
 | Mã ca / ảnh | Vị trí xe hoặc ID box trong CVAT | Tình huống và dấu hiệu nhìn thấy | Quyết định cuối | Lý do theo schema / xác nhận |
 | --- | --- | --- | --- | --- |
-| CASE-01 / Chờ tên ảnh thật | Chờ điền | Chờ quan sát thực tế | Chưa quyết định | Chờ điền |
-| CASE-02 / Chờ tên ảnh thật | Chờ điền | Chờ quan sát thực tế | Chưa quyết định | Chờ điền |
-| CASE-03 / Chờ tên ảnh thật | Chờ điền | Chờ quan sát thực tế | Chưa quyết định | Chờ điền |
+| CASE-01 / `drive_014.jpg` | ID411 | Nhầm lớp `car` / `van`; học viên chưa mô tả dấu hiệu hình ảnh. | Đổi `car` → `van` theo thông tin học viên cung cấp. | Chờ học viên bổ sung dấu hiệu quan sát và lý do theo schema; chưa ghi nhận xác nhận của giảng viên. |
+| CASE-02 / `drive_017.jpg` | ID467 | Nhầm lớp `van` / `car`; học viên chưa mô tả dấu hiệu hình ảnh. | Đổi `van` → `car` theo thông tin học viên cung cấp. | Chờ học viên bổ sung dấu hiệu quan sát và lý do theo schema; chưa ghi nhận xác nhận của giảng viên. |
+| CASE-03 / `drive_039.jpg` | ID936 | Nhầm lớp `truck` / `bus`; học viên chưa mô tả dấu hiệu hình ảnh. | Đổi `truck` → `bus` theo thông tin học viên cung cấp. | Chờ học viên bổ sung dấu hiệu quan sát và lý do theo schema; chưa ghi nhận xác nhận của giảng viên. |
+
+Lưu ý đồng bộ: quyết định đã được ghi nhận trong tài liệu; cần xuất lại nhãn CVAT sau chỉnh sửa để cập nhật các file YOLO. ID đối tượng CVAT không được lưu trong file YOLO 5 cột, nên không dùng ID làm số dòng để sửa nhãn.
 
 ## Cách ghi nhận trong lúc làm CVAT
 
