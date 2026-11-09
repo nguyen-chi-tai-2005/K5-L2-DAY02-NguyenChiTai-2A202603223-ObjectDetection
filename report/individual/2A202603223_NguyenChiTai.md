@@ -74,7 +74,7 @@ Trả lời bốn câu hỏi cuối notebook:
 
 ## 8. Công cụ AI và tài liệu tham khảo
 
-- Codex: hỗ trợ đọc yêu cầu, lập thứ tự thực hiện, chuẩn bị khung báo cáo, URL repo trong notebook và checklist CVAT. Không tạo nhãn hoặc kết quả đánh giá.
+- Codex: hỗ trợ đọc yêu cầu, lập thứ tự thực hiện, chuẩn bị khung báo cáo, URL repo trong notebook, checklist CVAT và bản nháp định nghĩa lớp/quy tắc mini guideline theo đề bài. Ba ca mơ hồ thực tế do học viên tự ghi và xác nhận. Không tạo nhãn hoặc kết quả đánh giá.
 - Phần học viên tự kiểm tra: Chờ bổ sung các bước đã thực hiện thực tế.
 - Tài liệu công cụ: https://docs.cvat.ai/docs/dataset_management/formats/format-yolo-ultralytics/
 - Không ghi mật khẩu/token hoặc đính kèm gold train.
