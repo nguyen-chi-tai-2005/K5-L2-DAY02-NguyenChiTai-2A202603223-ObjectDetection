@@ -1,6 +1,6 @@
 # Báo cáo cá nhân — Ngày 2 Object Detection
 
-Trạng thái: đang gán nhãn bằng CVAT; chưa chạy self-QC, gold QC hoặc huấn luyện. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
+Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; chưa xác nhận rà bằng mắt 10 ảnh, chưa chạy gold QC hoặc huấn luyện. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
 
 ## 1. Thông tin học viên
 
@@ -19,11 +19,11 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Tóm tắt ba ca mơ h
 ## 3. Annotation và self-QC
 
 - Công cụ gán nhãn: CVAT; xuất YOLO detection, kiểm tra mapping car=0, truck=1, bus=2, van=3.
-- Số file nhãn train: Chờ xuất từ CVAT
-- Kết quả checker và lỗi đã xử lý:
-- Danh sách ít nhất 10 ảnh đã rà bằng mắt:
+- Số file nhãn train: 50; tổng 1.170 box (car: 990, truck: 21, bus: 107, van: 52). Đây là thống kê nhãn xuất, chưa xác nhận độ đúng.
+- Kết quả checker và lỗi đã xử lý: `python3 tools/check_yolo_labels.py` đạt 50/50; không phát hiện lỗi cấu trúc. Mapping bản xuất đúng car=0, truck=1, bus=2, van=3.
+- Danh sách ít nhất 10 ảnh đã rà bằng mắt: Chờ học viên xác nhận và ghi tên ảnh.
 - Lỗi bỏ sót/box/class phát hiện khi rà và cách sửa:
-- Commit khóa nhãn ban đầu:
+- Commit khóa nhãn ban đầu: Chờ hoàn tất self-QC và khóa theo mốc lớp; commit nhập nhãn CVAT chưa được coi là xác nhận hoàn thành bước này.
 
 ## 4. Gold QC và rework
 
