@@ -28,11 +28,19 @@
 
 | Mã ca / ảnh | Vị trí xe hoặc ID box trong CVAT | Tình huống và dấu hiệu nhìn thấy | Quyết định cuối | Lý do theo schema / xác nhận |
 | --- | --- | --- | --- | --- |
-| CASE-01 / `drive_014.jpg` | ID411 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `car` → `van`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe van/minivan chở hàng hoặc chở người thuộc `van`, phân biệt với xe con thông thường thuộc `car`. Học viên xác định lại loại xe là van; chưa cung cấp mô tả đặc điểm quan sát. |
-| CASE-02 / `drive_017.jpg` | ID467 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `van` → `car`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe con, sedan, SUV, taxi và bán tải thuộc `car`; không xếp vào `van` chỉ vì thân xe lớn. Học viên xác định lại loại xe là car; chưa cung cấp mô tả đặc điểm quan sát. |
-| CASE-03 / `drive_039.jpg` | ID936 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `truck` → `bus`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe buýt/minibus chở khách thuộc `bus`, còn xe tải hàng/đầu kéo thuộc `truck`. Học viên xác định lại loại xe là bus; chưa cung cấp mô tả đặc điểm quan sát. |
+| CASE-01 / `drive_014.jpg` | ID411 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `car` → `van`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe van/minivan chở hàng hoặc chở người thuộc `van`, phân biệt với xe con thông thường thuộc `car`. Học viên xác định lại loại xe là van; không xác minh vị trí ID từ YOLO; xem các ca bổ sung có dấu hiệu trực quan bên dưới. |
+| CASE-02 / `drive_017.jpg` | ID467 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `van` → `car`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe con, sedan, SUV, taxi và bán tải thuộc `car`; không xếp vào `van` chỉ vì thân xe lớn. Học viên xác định lại loại xe là car; không xác minh vị trí ID từ YOLO; xem các ca bổ sung có dấu hiệu trực quan bên dưới. |
+| CASE-03 / `drive_039.jpg` | ID936 | Đã điều chỉnh phân lớp trong quá trình annotation. | Đổi `truck` → `bus`; học viên xác nhận bản xuất hiện tại đã chứa thay đổi. | Theo schema, xe buýt/minibus chở khách thuộc `bus`, còn xe tải hàng/đầu kéo thuộc `truck`. Học viên xác định lại loại xe là bus; không xác minh vị trí ID từ YOLO; xem các ca bổ sung có dấu hiệu trực quan bên dưới. |
 
 Lưu ý đồng bộ: học viên xác nhận ba thay đổi đã có trong bản xuất CVAT được nhập vào repo tại commit `b7aad2f`; không sửa nhãn lần nữa từ ba ID này. Đây là xác nhận của học viên, không phải kết quả đối chiếu ID tự động: file YOLO 5 cột không lưu ID đối tượng CVAT.
+
+## Ba ca mơ hồ bổ sung đã đối chiếu trực quan
+
+Các quan sát dưới đây được Codex đối chiếu từ ảnh và overlay nhãn theo yêu cầu học viên; không gán lại chúng cho ID CVAT cũ và không coi là ghi chép trước khi nhận gold.
+
+- `drive_008.jpg`: hai bus lớn bên phải chồng hình, xe phía sau bị che một phần. Dấu hiệu còn thấy gồm thân xe dài, dãy cửa sổ và phần đầu/đuôi riêng của hai xe. Quyết định: phân biệt hai vật thể, lớp bus, không gộp thành một box; box theo phần nhìn thấy của từng xe. Cần kiểm lại các cạnh khi một xe che xe còn lại.
+- `drive_030.jpg`: xe màu sáng bên phải và xe tối màu gần góc phải có thân cao, dài, nóc liên tục và không thấy thùng hàng hở; có thể gây phân vân car/van khi nhìn từ góc cao. Quyết định trong nhãn cuối là van; cơ sở là thân xe dạng van/minivan theo schema, không phải chỉ vì kích thước lớn. Xe xa không đủ chi tiết không được tự đoán lớp.
+- `drive_034.jpg`: xe trắng giữa phần dưới ảnh có cabin riêng và thiết bị nâng/cẩu trên khung phía sau, khác thân liền của van và xe bán tải thông thường. Quyết định nhãn cuối là truck; cơ sở là cấu trúc xe tải chuyên dụng/cabin và khung sau. Đây là điểm schema mô tả chưa chi tiết bằng xe tải hàng, nên ghi rõ trường hợp chuyên dụng để giảng viên đối chiếu; không suy thành bus chỉ vì xe lớn.
 
 ## Cách ghi nhận trong lúc làm CVAT
 
