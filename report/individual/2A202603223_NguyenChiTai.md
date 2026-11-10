@@ -1,6 +1,6 @@
 # Báo cáo cá nhân — Ngày 2 Object Detection
 
-Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; chưa xác nhận rà bằng mắt 10 ảnh, đã chạy gold QC sau rework và đạt cả F1/mean IoU; chưa huấn luyện. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
+Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; chưa xác nhận rà bằng mắt 10 ảnh, đã chạy gold QC sau rework và đạt cả F1/mean IoU; đã chạy train/eval Colab và nhập kết quả; link Colab và phần phân tích còn chờ bổ sung. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
 
 ## 1. Thông tin học viên
 
@@ -50,14 +50,14 @@ Kiểm tra bản xuất mới nhất: cả 50 file thay đổi so với lần re
 
 - Runtime, GPU/CPU, phiên bản Ultralytics và Torch:
 - Các tham số thay đổi so với notebook nếu có và lý do:
-- Đường dẫn best checkpoint trong phiên chạy:
+- Đường dẫn best checkpoint trong phiên chạy: `/content/Day2-Lab/outputs/yolo26_runs/vehicle_annotation/weights/best.pt` (không commit checkpoint).
 
 | Chỉ số trên 10 ảnh eval | Giá trị |
 |---|---:|
-| Precision | |
-| Recall | |
-| mAP50 | |
-| mAP50–95 | |
+| Precision | 0.6779 |
+| Recall | 0.5266 |
+| mAP50 | 0.5960 |
+| mAP50–95 | 0.4055 |
 
 Đặt cả 2 folder `assets/eval_predictions/` và `assets/yolo26_runs/` (giải nén từ `day2_colab_outputs.zip`) cạnh báo cáo và dẫn link tương đối. Không chỉ ghi số; chỉ ra ít nhất một ảnh và vật thể cụ thể.
 
@@ -67,6 +67,8 @@ Trả lời bốn câu hỏi cuối notebook:
 2. Nếu mAP50 cao nhưng mAP50–95 thấp, cần kiểm điều gì trên box?
 3. Lỗi class nào có thể liên quan guideline? Dữ kiện nào hỗ trợ nhận xét?
 4. Vì sao không dùng 10 ảnh eval để train? Vai trò validation của chúng trong notebook là gì?
+
+Kết quả thực tế từ ZIP Colab, đánh giá trên 10 ảnh eval. [Số liệu gốc](assets/model_eval_metrics.json), [log train](assets/yolo26_runs/vehicle_annotation/results.csv), [ảnh dự đoán](assets/eval_predictions/visuals/), [biểu đồ đánh giá](assets/yolo26_runs/vehicle_eval/).
 
 ## 6. Khó khăn và cách xử lý
 
