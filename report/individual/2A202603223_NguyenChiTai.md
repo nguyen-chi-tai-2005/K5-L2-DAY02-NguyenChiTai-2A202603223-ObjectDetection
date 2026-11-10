@@ -1,6 +1,6 @@
 # Báo cáo cá nhân — Ngày 2 Object Detection
 
-Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; chưa xác nhận rà bằng mắt 10 ảnh, đã chạy gold QC sau rework và đạt cả F1/mean IoU; đã chạy train/eval Colab và nhập kết quả; link Colab và phần phân tích còn chờ bổ sung. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
+Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; chưa xác nhận rà bằng mắt 10 ảnh, đã chạy gold QC sau rework và đạt cả F1/mean IoU; đã chạy train/eval Colab và nhập kết quả; đã bổ sung link Colab và câu trả lời từ notebook; còn các mục cần học viên xác nhận. Các mục chưa có kết quả phải được bổ sung trước khi nộp. Xem [quy định nộp](../../SUBMISSION.md).
 
 ## 1. Thông tin học viên
 
@@ -10,7 +10,7 @@ Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; c
 - Lớp:
 - Link repo bài làm: https://github.com/nguyen-chi-tai-2005/K5-L2-Day02-NguyenChiTai-2A202603223-ObjectDetection
 - Link mở notebook Colab (chưa chạy): https://colab.research.google.com/github/nguyen-chi-tai-2005/K5-L2-Day02-NguyenChiTai-2A202603223-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb
-- Link bản Colab cá nhân đã chạy: Chờ bổ sung
+- Link bản Colab cá nhân đã chạy: https://colab.research.google.com/drive/1-C8ZVjWDiyvrd7c64MjiWT9wHhT84ZBh?usp=sharing
 
 ## 2. Schema và mini guideline
 
@@ -48,8 +48,8 @@ Kiểm tra bản xuất mới nhất: cả 50 file thay đổi so với lần re
 
 ## 5. Kết quả YOLO
 
-- Runtime, GPU/CPU, phiên bản Ultralytics và Torch:
-- Các tham số thay đổi so với notebook nếu có và lý do:
+- Runtime, GPU/CPU, phiên bản Ultralytics và Torch: Google Colab, Tesla T4, Ultralytics 8.4.208, Torch 2.14.1+cu130 (theo log notebook).
+- Các tham số thay đổi so với notebook nếu có và lý do: cell train giữ epochs=50, imgsz=640, batch=-1, seed=20260909 như notebook gốc.
 - Đường dẫn best checkpoint trong phiên chạy: `/content/Day2-Lab/outputs/yolo26_runs/vehicle_annotation/weights/best.pt` (không commit checkpoint).
 
 | Chỉ số trên 10 ảnh eval | Giá trị |
@@ -61,12 +61,35 @@ Kiểm tra bản xuất mới nhất: cả 50 file thay đổi so với lần re
 
 Đặt cả 2 folder `assets/eval_predictions/` và `assets/yolo26_runs/` (giải nén từ `day2_colab_outputs.zip`) cạnh báo cáo và dẫn link tương đối. Không chỉ ghi số; chỉ ra ít nhất một ảnh và vật thể cụ thể.
 
-Trả lời bốn câu hỏi cuối notebook:
+### Trả lời câu hỏi phân tích
 
-1. Lớp nào recall thấp nhất? Ảnh nào minh họa?
-2. Nếu mAP50 cao nhưng mAP50–95 thấp, cần kiểm điều gì trên box?
-3. Lỗi class nào có thể liên quan guideline? Dữ kiện nào hỗ trợ nhận xét?
-4. Vì sao không dùng 10 ảnh eval để train? Vai trò validation của chúng trong notebook là gì?
+#### 1. Lớp nào có recall thấp nhất? Chỉ ra một ảnh eval minh họa.
+- **Lớp có recall thấp nhất:** Dựa trên bảng kết quả validation (từ log của hàm `best_model.val()`):
+  - `car`: Recall = `0.840`
+  - `truck`: Recall = `0.349`
+  - `bus`: Recall = `0.500`
+  - `van`: Recall = `0.417`
+  - **Kết luận:** Lớp **`truck`** có chỉ số Recall thấp nhất (`0.349`), bám sát ngay sau đó là `van` (`0.417`).
+- **Ảnh eval minh họa:** Ảnh **`drive_055.jpg`** hoặc **`drive_059.jpg`**.
+  - Ví dụ trong log predict: `drive_055.jpg` chứa 1 `truck` thực tế nhưng mô hình nhận diện kém hoặc dễ bị bỏ sót, hay `drive_059.jpg` có chứa xe tải lớn đi xa/khuất dễ bị lẫn với `car` hoặc bỏ qua hoàn toàn do tập train quá ít ảnh dạng này.
+
+#### 2. Nếu mAP50 cao nhưng mAP50-95 thấp, box đang gặp vấn đề gì?
+- Nếu $mAP_{50}$ cao nhưng $mAP_{50-95}$ thấp, điều này phản ánh **độ chính xác về vị trí/khớp biên của bounding box đang gặp vấn đề (Localization error)**.
+- **Giải thích:**
+  - $mAP_{50}$ chỉ yêu cầu độ giao đè IoU giữa box dự đoán và ground-truth đạt từ 0.5 trở lên (mô hình chỉ cần bao quanh được đối tượng ở mức tương đối).
+  - $mAP_{50-95}$ tính trung bình trên nhiều ngưỡng IoU khắt khe hơn (từ 0.50 đến 0.95). Nếu chỉ số này thấp, chứng tỏ các bounding box dự đoán của mô hình bị lệch lệch (quá rộng, quá hẹp hoặc bị lệch tâm) so với nhãn chuẩn, không đạt được độ khít cao ở các ngưỡng IoU lớn (như 0.75, 0.85, 0.90).
+
+#### 3. Có lỗi `truck`/`bus`/`van`/`car` nào liên quan tới guideline không?
+- Có, lỗi phổ biến nhất liên quan chặt chẽ đến **Guideline phân loại dòng xe (Class Ambiguity)**:
+  - **Van vs. SUV/Car:** Nhiều dòng xe bán tải lớn hoặc xe bán tải chở hàng nhỏ thường bị phân loại nhầm giữa `van` và `car` (hoặc `truck`).
+  - **Truck vs. Bus/Van:** Xe tải nhỏ dạng cabin-chassis hoặc xe khách nhỏ dễ bị gán nhãn nhầm hoặc mô hình dự đoán nhầm chéo qua lại nếu người gán nhãn (ở bước annotation) không bám sát định nghĩa kích thước/mục đích sử dụng trong Guideline quy định.
+  - Ở tập eval, do số lượng mẫu của các lớp `truck` (5 instances), `bus` (2 instances), `van` (12 instances) cực kỳ ít, chỉ cần gán nhãn sai lệch 1-2 ảnh theo chuẩn guideline là chỉ số Recall/Precision của các lớp này lập tức giảm mạnh.
+
+#### 4. Vì sao không dùng 10 ảnh eval để train dù chúng có nhãn?
+- **Tránh hiện tượng rò rỉ dữ liệu (Data Leakage):** 10 ảnh eval đóng vai trò là chốt chặn để đánh giá khách quan khả năng tổng quát hóa (generalization) của mô hình trên dữ liệu thực tế mà nó chưa từng được học cấu trúc/trọng số trực tiếp.
+- **Đảm bảo tính trung thực của Metric:** Nếu đưa 10 ảnh này vào tập huấn luyện, mô hình sẽ "học vẹt" luôn các đặc điểm của 10 ảnh này. Khi đó, kết quả đánh giá (validation metrics) đạt được sẽ cực kỳ cao (overfitting) nhưng không phản ánh đúng năng lực nhận diện thực tế của detector khi triển khai trên các video/hình ảnh giao thông hoàn toàn mới.
+
+Ghi chú cần học viên rà lại trước khi nộp: log predict ở câu 1 chỉ ghi số box dự đoán, không xác nhận bỏ sót truck trong ảnh cụ thể. Câu 3 cần dẫn chứng từ ảnh/confusion matrix trước khi kết luận lỗi phổ biến nhất; theo schema, bán tải thuộc car. Câu 4 cần bổ sung rằng eval được dùng validation trong train và chọn best.pt, nên không phải test độc lập; đưa eval vào train làm sai quy trình đánh giá nhưng không bảo đảm mọi metric sẽ rất cao.
 
 Kết quả thực tế từ ZIP Colab, đánh giá trên 10 ảnh eval. [Số liệu gốc](assets/model_eval_metrics.json), [log train](assets/yolo26_runs/vehicle_annotation/results.csv), [ảnh dự đoán](assets/eval_predictions/visuals/), [biểu đồ đánh giá](assets/yolo26_runs/vehicle_eval/).
 
