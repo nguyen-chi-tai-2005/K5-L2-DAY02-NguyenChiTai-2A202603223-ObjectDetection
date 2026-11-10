@@ -40,6 +40,8 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Ba quyết định h�
 
 Kết quả lần đầu: [annotation_evaluation.json](../../outputs/annotation_evaluation.json). Đủ 50 file gold khớp tên ảnh train; checker nhãn học viên đạt 50/50. Chưa đạt điều kiện train: F1 = 0.5354 < 0.80, dù mean IoU = 0.8377 >= 0.70. Bộ nhãn học viên có 1.170 box, gold có 653 box; TP=488, FP=682, FN=165. Chênh lệch số lượng và FP/FN chỉ là tín hiệu cần rà lại ảnh, không chứng minh từng box thừa/thiếu hoặc nguyên nhân sai lớp. Chưa sửa nhãn sau đánh giá; giữ bản ban đầu tại commit `b7aad2f`. Gold chỉ dùng cục bộ, không đưa lên repo hoặc Colab. Nếu rework, ghi ảnh, lỗi đã kiểm, quyết định sửa/giữ và lý do. Không suy nguyên nhân chỉ từ FP/FN. Không có rework thì ghi rõ.
 
+Kiểm tra bản `label_job2`: checker đạt 50/50, mapping lớp đúng. So sánh từng byte cho thấy cả 50 file nhãn giống bản ban đầu trong repo, không có file thay đổi. Chạy evaluator lại cho cùng kết quả F1=0.5354, mean IoU=0.8377, passed=false; chưa thể ghi nhận bộ nhãn rework mới. Cần học viên kiểm tra lưu và xuất đúng task/job đã chỉnh sửa trên CVAT.
+
 ## 5. Kết quả YOLO
 
 - Runtime, GPU/CPU, phiên bản Ultralytics và Torch:
