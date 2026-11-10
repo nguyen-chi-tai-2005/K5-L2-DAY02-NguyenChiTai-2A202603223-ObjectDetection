@@ -9,7 +9,7 @@ Trạng thái: đã xuất nhãn CVAT và kiểm tra cấu trúc đạt 50/50; c
 - Email:
 - Lớp:
 - Link repo bài làm: https://github.com/nguyen-chi-tai-2005/K5-L2-Day02-NguyenChiTai-2A202603223-ObjectDetection
-- Link mở notebook Colab (chưa chạy): https://colab.research.google.com/github/nguyen-chi-tai-2005/K5-L2-Day02-NguyenChiTai-2A202603223-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb
+- Link notebook nguồn trên GitHub để mở Colab: https://colab.research.google.com/github/nguyen-chi-tai-2005/K5-L2-Day02-NguyenChiTai-2A202603223-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb
 - Link bản Colab cá nhân đã chạy: https://colab.research.google.com/drive/1-C8ZVjWDiyvrd7c64MjiWT9wHhT84ZBh?usp=sharing
 
 ## 2. Schema và mini guideline
@@ -23,7 +23,7 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Ba quyết định h�
 - Kết quả checker và lỗi đã xử lý: `python3 tools/check_yolo_labels.py` đạt 50/50; không phát hiện lỗi cấu trúc. Mapping bản xuất đúng car=0, truck=1, bus=2, van=3.
 - Danh sách ít nhất 10 ảnh đã rà bằng mắt: Chờ học viên xác nhận và ghi tên ảnh.
 - Lỗi bỏ sót/box/class phát hiện khi rà và cách sửa: Học viên cung cấp 3 thay đổi lớp nêu ở mục 2. Học viên xác nhận bản xuất CVAT đã chứa cả ba thay đổi trước khi nhập vào repo; không sửa nhãn thêm từ ID đối tượng.
-- Commit khóa nhãn ban đầu: Chờ hoàn tất self-QC và khóa theo mốc lớp; commit nhập nhãn CVAT chưa được coi là xác nhận hoàn thành bước này.
+- Commit lưu bộ nhãn ban đầu trước đánh giá gold: `b7aad2f`. Việc hoàn thành self-QC và khóa theo mốc chính thức của lớp cần học viên xác nhận; lịch sử Git chỉ chứng minh bản nhãn đã được lưu.
 
 ## 4. Gold QC và rework
 
@@ -38,13 +38,13 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Ba quyết định h�
 | mean_iou_of_matches | 0.8377 | 0.9993 |
 | passed | false | true |
 
-Kết quả lần đầu: [annotation_evaluation_before_rework.json](../../outputs/annotation_evaluation_before_rework.json). Kết quả mới nhất: [annotation_evaluation.json](../../outputs/annotation_evaluation.json). Đủ 50 file gold khớp tên ảnh train; checker nhãn học viên đạt 50/50. Chưa đạt điều kiện train: F1 = 0.5354 < 0.80, dù mean IoU = 0.8377 >= 0.70. Bộ nhãn học viên có 1.170 box, gold có 653 box; TP=488, FP=682, FN=165. Chênh lệch số lượng và FP/FN chỉ là tín hiệu cần rà lại ảnh, không chứng minh từng box thừa/thiếu hoặc nguyên nhân sai lớp. Giữ bản ban đầu tại commit `b7aad2f`; đã nhận bản rework cập nhật trong `label_job2`. Gold chỉ dùng cục bộ, không đưa lên repo hoặc Colab. Nếu rework, ghi ảnh, lỗi đã kiểm, quyết định sửa/giữ và lý do. Không suy nguyên nhân chỉ từ FP/FN. Không có rework thì ghi rõ.
+Kết quả lần đầu: [annotation_evaluation_before_rework.json](../../outputs/annotation_evaluation_before_rework.json). Kết quả mới nhất: [annotation_evaluation.json](../../outputs/annotation_evaluation.json). Đủ 50 file gold khớp tên ảnh train; checker nhãn học viên đạt 50/50. Ở lần đánh giá đầu, chưa đạt điều kiện train: F1 = 0.5354 < 0.80, dù mean IoU = 0.8377 >= 0.70. Bộ nhãn học viên có 1.170 box, gold có 653 box; TP=488, FP=682, FN=165. Chênh lệch số lượng và FP/FN chỉ là tín hiệu cần rà lại ảnh, không chứng minh từng box thừa/thiếu hoặc nguyên nhân sai lớp. Giữ bản ban đầu tại commit `b7aad2f`; đã nhận bản rework cập nhật trong `label_job2`. Gold chỉ dùng cục bộ, không đưa lên repo hoặc Colab. Nếu rework, ghi ảnh, lỗi đã kiểm, quyết định sửa/giữ và lý do. Không suy nguyên nhân chỉ từ FP/FN. Không có rework thì ghi rõ.
 
 Kiểm tra bản `label_job2`: checker đạt 50/50, mapping lớp đúng. So sánh từng byte cho thấy cả 50 file nhãn giống bản ban đầu trong repo, không có file thay đổi. Chạy evaluator lại cho cùng kết quả F1=0.5354, mean IoU=0.8377, passed=false; chưa thể ghi nhận bộ nhãn rework mới. Cần học viên kiểm tra lưu và xuất đúng task/job đã chỉnh sửa trên CVAT.
 
 Lần xuất lại tiếp theo của `label_job2`: cả 50 file đã thay đổi so với bản đầu, checker đạt 50/50. Kết quả mới: Precision=0.5979, Recall=0.6876, F1=0.6396, mean IoU=0.8404; TP=449, FP=302, FN=204. F1 tăng nhưng chưa đạt 0.80, nên chưa train. Học viên chưa cung cấp danh sách lỗi và lý do sửa theo từng ảnh; cần bổ sung từ quá trình rà thực tế. Không kết luận nguyên nhân chỉ từ số liệu.
 
-Kiểm tra bản xuất mới nhất: cả 50 file thay đổi so với lần rework trước, checker đạt 50/50. Precision=0.9369, Recall=0.9770, F1=0.9565, mean IoU=0.9993; TP=638, FP=43, FN=15; passed=true. Đã đạt cả hai ngưỡng annotation để chuyển sang train Colab. Kết quả vòng rework trước được giữ tại [annotation_evaluation_rework1.json](../../outputs/annotation_evaluation_rework1.json). Các đoạn mô tả chưa đạt phía trên là lịch sử các lần đánh giá, không phải trạng thái hiện tại. Học viên cần bổ sung mô tả việc sửa thực tế theo từng ảnh; chưa có kết quả model.
+Kiểm tra bản xuất mới nhất: cả 50 file thay đổi so với lần rework trước, checker đạt 50/50. Precision=0.9369, Recall=0.9770, F1=0.9565, mean IoU=0.9993; TP=638, FP=43, FN=15; passed=true. Đã đạt cả hai ngưỡng annotation để chuyển sang train Colab. Kết quả vòng rework trước được giữ tại [annotation_evaluation_rework1.json](../../outputs/annotation_evaluation_rework1.json). Các đoạn mô tả chưa đạt phía trên là lịch sử các lần đánh giá, không phải trạng thái hiện tại. Học viên cần bổ sung mô tả việc sửa thực tế theo từng ảnh. Kết quả model đã được ghi ở mục 5.
 
 ## 5. Kết quả YOLO
 
@@ -59,7 +59,7 @@ Kiểm tra bản xuất mới nhất: cả 50 file thay đổi so với lần re
 | mAP50 | 0.5960 |
 | mAP50–95 | 0.4055 |
 
-Đặt cả 2 folder `assets/eval_predictions/` và `assets/yolo26_runs/` (giải nén từ `day2_colab_outputs.zip`) cạnh báo cáo và dẫn link tương đối. Không chỉ ghi số; chỉ ra ít nhất một ảnh và vật thể cụ thể.
+Đã nhập cả `assets/eval_predictions/` và `assets/yolo26_runs/` từ ZIP Colab. Các đường dẫn kết quả ở cuối mục này. Phần phân tích ảnh cần học viên xác nhận bằng vật thể cụ thể.
 
 ### Trả lời câu hỏi phân tích
 
